@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <title>Shape</title>
+  <style type="text/css">
+    body {
+      background-color: black;
+      margin: 0;
+    }
+
+    #square-box {
+      display: block;
+      margin: 100px auto;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    #square-shape {
+      stroke-dasharray: 0;
+      stroke-dashoffset: 0;
+
+      transition: stroke-dashoffset 0.2s ease-in-out;
+    }
+  </style>
+</head>
+
+<body>
+
+  <?xml version="1.0" standalone="no"?>
+  <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" version="1.1" id="square-box">
+    <rect id="square-shape" x="0" y="0" width="100" height="100" stroke-width="4" stroke="white" />
+  </svg>
+
+  <script>
+  var box   = document.getElementById('square-box');
+  var shape = document.getElementById('square-shape');
+
+  var rotation = 0;
+  var rotateSquare = function(deg) {
+    rotation += deg;
+    box.style.transform = 'rotate(' + rotation + 'deg)';
+  }
+
+  var dashOffset = 0;
+  var lengthSet = false;
+  var modifyStroke = function(dOffset) {
+    if (!lengthSet) { setShapeLength(); lengthSet = true }
+    dashOffset += dOffset;
+    shape.style.strokeDashoffset = dashOffset;
+  }
+
+  var setShapeLength = function() {
+    // var length = shape.getTotalLength();
+    var length = 400; // 4 sided 100px square, getTotalLength maybe doesn't work here?
+    shape.style.strokeDasharray = length;
+  }
+
+  socket_ = new WebSocket('ws://literature.uncontext.com:80');
+  socket_.onmessage = function (data) {
+    var data = JSON.parse(data.data);
+    console.log(data);
+    rotateSquare(data.a);
+    modifyStroke(data.b, data.d);
+  };
+
+</script>
+
+</body>
+</html>
