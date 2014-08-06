@@ -15,7 +15,8 @@ body {
   position: absolute;
   fill: none;
 
-  transition: -webkit-transform 0.3s ease-in-out, transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .square {
