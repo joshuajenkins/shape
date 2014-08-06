@@ -65,12 +65,13 @@ var shape = (function() {
 
   var square = function(inner) {
     var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    var strokeWidth = (canvas.getDocWidth() < 600) ? 2: 4;
     el.setAttribute('class', 'square');
     el.setAttribute('x', 0);
     el.setAttribute('y', 0);
     el.setAttribute('width', inner);
     el.setAttribute('height', inner);
-    el.setAttribute('stroke-width', 4);
+    el.setAttribute('stroke-width', strokeWidth);
     el.setAttribute('stroke', 'white');
     el.style.strokeDasharray = inner * 4 + 'px';
 
@@ -104,7 +105,7 @@ var canvas = (function() {
     docHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
     if (docWidth < 600) {
-      ctInner = 40;
+      ctInner = 50;
       ctMargin = ctInner / 2.8;
       ctOuter = ctInner + ctMargin;
     }
@@ -138,13 +139,18 @@ var canvas = (function() {
 
   }
 
+  var getDocWidth = function() {
+    return docWidth;
+  }
+
   var init = function() {
     setDimensions();
     drawContainersL1();
   }
 
   return {
-    'init': init
+    'init': init,
+    'getDocWidth': getDocWidth
   }
 
 }());
