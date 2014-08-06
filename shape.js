@@ -28,8 +28,10 @@ var animate = (function() {
     rotationNeg -= deg;
     for (var i = 0; i < containers.length; i++) {
       if (i % 2) {
+        containers[i].style.webkitTransform = 'rotate(' + rotationPos + 'deg)';
         containers[i].style.transform = 'rotate(' + rotationPos + 'deg)';
       } else {
+        containers[i].style.webkitTransform = 'rotate(' + rotationNeg + 'deg)';
         containers[i].style.transform = 'rotate(' + rotationNeg + 'deg)';
       }
     }

@@ -15,11 +15,11 @@ body {
   position: absolute;
   fill: none;
 
-  transition: transform 0.2s ease-in-out;
+  transition: -webkit-transform 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .square {
   stroke-dashoffset: 0;
 
-  transition: stroke-dashoffset 0.2s ease-in-out;
+  transition: stroke-dashoffset 0.3s ease-in-out;
 }
