@@ -19,9 +19,16 @@ var socket = (function() {
 var animate = (function() {
   var containers;
   var squares;
+
   var rotationPos = 0;
   var rotationNeg = 0;
+
   var dashOffset = 0;
+
+  var bgH = 5;
+  var bgMaxH = 30;
+  var bgMinH = -30;
+  var bgForward = true;
 
   var rotateContainers = function(deg) {
     rotationPos += deg;
@@ -44,9 +51,34 @@ var animate = (function() {
     }
   }
 
+  var changeBackground = function(hue) {
+    var newH;
+    if (bgForward) {
+      if (bgH + hue <= bgMaxH) {
+        bgH += hue;
+        newH = bgH;
+      } else {
+        bgH -= hue;
+        newH = bgH;
+        bgForward = false;
+      }
+    } else {
+      if (bgH - hue >= bgMinH) {
+        bgH -= hue;
+        newH = bgH;
+      } else {
+        bgH += hue;
+        newH = bgH;
+        bgForward = true;
+      }
+    }
+    document.body.style.background = 'hsl(' + newH + ', 95.4%, 78.2%)';
+  }
+
   var newFrame = function(data) {
     rotateContainers(data.a);
     modifyStroke(data.b);
+    changeBackground(data.c);
   }
 
   var init = function() {

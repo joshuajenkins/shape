@@ -8,6 +8,8 @@ body,
 body {
   background-color: hsl(5, 95.4%, 78.2%);
   margin: 0;
+
+  transition: background-color 0.2s ease-in-out;
 }
 
 .container {
