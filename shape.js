@@ -91,7 +91,7 @@ var canvas = (function() {
 
   // ct -> container (SVG container)
   var ctInner   = 70;
-  var ctMargin  = ctInner / 3;
+  var ctMargin  = ctInner / 2.8;
   var ctOuter   = ctInner + ctMargin;
 
   var ctXCount,
@@ -102,6 +102,12 @@ var canvas = (function() {
   var setDimensions = function() {
     docWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     docHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    if (docWidth < 600) {
+      ctInner = 40;
+      ctMargin = ctInner / 2.8;
+      ctOuter = ctInner + ctMargin;
+    }
 
     ctXCount  = Math.floor(docWidth / ctOuter);
     ctYCount  = Math.floor(docHeight / ctOuter);
