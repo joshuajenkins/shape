@@ -82,8 +82,8 @@ var animate = (function() {
   }
 
   var init = function() {
-    containers  = document.getElementsByClassName('container');
-    squares     = document.getElementsByClassName('square');
+    containers  = document.getElementsByClassName('shape-container');
+    squares     = document.getElementsByClassName('shape-square');
     socket.connect();
   }
 
@@ -98,7 +98,7 @@ var shape = (function() {
   var square = function(inner) {
     var el = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     var strokeWidth = (canvas.getDocWidth() < 600) ? 2: 4;
-    el.setAttribute('class', 'square');
+    el.setAttribute('class', 'shape-square');
     el.setAttribute('x', 0);
     el.setAttribute('y', 0);
     el.setAttribute('width', inner);
@@ -120,7 +120,7 @@ var canvas = (function() {
   var docWidth,
       docHeight;
 
-  var container = document.getElementById('artboard');
+  var artboard;
 
   // ct -> container (SVG container)
   var ctInner   = 70;
@@ -153,7 +153,7 @@ var canvas = (function() {
     for (x = 0; x < ctXCount; x++) {
       for (y = 0; y < ctYCount; y++) {
         var el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        el.setAttribute('class', 'container');
+        el.setAttribute('class', 'shape-container');
         el.setAttribute('width', ctInner);
         el.setAttribute('height', ctInner);
         el.style.left = Math.floor(ctXOffset + (ctOuter * x)) + (ctMargin / 2) + 'px';
@@ -162,13 +162,9 @@ var canvas = (function() {
         var square = shape.square(ctInner);
         el.appendChild(square);
 
-        container.appendChild(el);
+        artboard.appendChild(el);
       }
     }
-  }
-
-  var drawContainersL2 = function() {
-
   }
 
   var getDocWidth = function() {
@@ -176,6 +172,10 @@ var canvas = (function() {
   }
 
   var init = function() {
+    var el = document.createElement('section');
+    el.setAttribute('id', 'shape-artboard');
+    artboard = el;
+    document.body.appendChild(artboard);
     setDimensions();
     drawContainersL1();
   }
